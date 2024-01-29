@@ -12,12 +12,13 @@ const userSchema = z
             .string()
             .min(1, 'Password is required')
             .min(8, 'Password must have than 8 characters'),
+        image: z.string()
     })
 
 export async function POST(req: Request) {
     try {
         const body = await req.json();
-        const { email, username, password } = userSchema.parse(body)
+        const { email, username, password, image } = userSchema.parse(body)
         // return NextResponse.json({email, username, password})
 
         //check if email already exist
@@ -44,7 +45,8 @@ export async function POST(req: Request) {
             data: {
                 username,
                 email,
-                password: hashPassword
+                password: hashPassword,
+                image
             }
         });
         const { password: newUserPassword, ...rest } = newUser

@@ -2,88 +2,71 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { signUpSchema } from "@/lib/schema";
+import { signInSchema } from "@/lib/schema";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { Eye, EyeOff, Info, Loader2, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useSignUp } from "@/lib/actions";
-import { toast } from "../ui/use-toast";
+import { signIn } from "next-auth/react";
+import { useToast } from "../ui/use-toast";
 
-const SignUpForm = () => {
+const SignInForm = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(true);
+  const { toast } = useToast();
 
-  type SignUpSchemaType = z.infer<typeof signUpSchema>;
-
-  const avatar = ["/avatar1.png", "/avatar2.png", "/avatar3.png"];
-  const randomAvatar = avatar[Math.floor(Math.random() * avatar.length)];
+  type SignInSchemaType = z.infer<typeof signInSchema>;
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignUpSchemaType>({
-    resolver: zodResolver(signUpSchema),
+  } = useForm<SignInSchemaType>({
+    resolver: zodResolver(signInSchema),
     defaultValues: {
-      username: "",
       email: "",
       password: "",
-      confirmPassword: "",
-      image: randomAvatar,
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof signUpSchema>) => {
-    try {
-      setIsLoading(true);
-      const responseData = await useSignUp({ values });
+  const onSubmit = async (values: z.infer<typeof signInSchema>) => {
+    setIsLoading(true);
+    const signData = await signIn("credentials", {
+      email: values.email,
+      password: values.password,
+      redirect: false,
+    });
 
-      if (responseData) {
-        router.push("/sign-in");
-        toast({
-          title: "Success create account",
-          variant: "default",
-        });
-      }
-    } finally {
+    if (signData?.error) {
       setIsLoading(false);
+      toast({
+        title: "Login error",
+        variant: "destructive",
+        description: "email or password invalid",
+      });
+    } else {
+      router.push("/");
+      router.refresh();
     }
   };
 
   return (
     <section className="border border-neutral-200  p-5 rounded-lg lg:col-start-5 lg:col-span-4 col-start-1 col-span-6 bg-white dark:bg-neutral-900 dark:border-neutral-800">
-      <div className="flex gap-2 items-center mb-5">
+      <div className="flex gap-2 items-center mb-10">
         <Sparkles className="w-12 h-12 border border-neutral-200 p-2 rounded-md dark:border-neutral-800" />
         <div>
-          <h3 className="font-bold text-xl">Create an account</h3>
+          <h3 className="font-bold text-xl">Welcome back?</h3>
           <p className="text-sm">
-            already have account?{" "}
-            <Link href="/sign-in" className="text-blue-500">
-              sign in
+            don't have account?{" "}
+            <Link href="/sign-up" className="text-blue-500">
+              sign up
             </Link>
           </p>
         </div>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
-        <div className="flex flex-col gap-1 ">
-          <label className="text-sm">Username</label>
-          <input
-            placeholder="username"
-            className="border border-neutral-300 dark:border-neutral-800 p-2 rounded-md outline-blue-300 dark:outline-blue-300 dark:bg-transparent"
-            type="name"
-            {...register("username")}
-          />
-
-          {errors.username && (
-            <span className="bg-red-300 rounded-md px-3 py-2 font-semibold text-red-900 text-xs flex gap-2 items-center">
-              <Info className="w-3 h-3" />
-              {errors.username.message}
-            </span>
-          )}
-        </div>
         <div className="flex flex-col gap-1">
           <label className="text-sm" htmlFor="email">
             Email
@@ -112,9 +95,8 @@ const SignUpForm = () => {
               type={showPassword ? "password" : "text"}
               {...register("password")}
             />
-            <button
+            <span
               className="absolute top-2 right-3 bg-white dark:bg-neutral-900"
-              type="button"
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? (
@@ -122,7 +104,7 @@ const SignUpForm = () => {
               ) : (
                 <EyeOff className="w-5 h-5 text-neutral-400" />
               )}
-            </button>
+            </span>
           </div>
 
           {errors.password && (
@@ -132,37 +114,7 @@ const SignUpForm = () => {
             </span>
           )}
         </div>
-        <div className="flex flex-col gap-1">
-          <label className="text-sm" htmlFor="confirmPassword">
-            Confirm Password
-          </label>
-          <div className="relative border border-neutral-300 dark:border-neutral-800 p-2 rounded-md focus-within:outline outline-1 outline-blue-300">
-            <input
-              className="w-[90%] outline-none dark:bg-transparent"
-              placeholder="confirmPassword"
-              type={showPassword ? "password" : "text"}
-              {...register("confirmPassword")}
-            />
-            <button
-              className="absolute top-2 right-3 bg-white dark:bg-neutral-900"
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? (
-                <Eye className="w-5 h-5 text-neutral-400" />
-              ) : (
-                <EyeOff className="w-5 h-5 text-neutral-400" />
-              )}
-            </button>
-          </div>
 
-          {errors.confirmPassword && (
-            <span className="bg-red-300 rounded-md px-3 py-2 font-semibold text-red-900 text-xs flex gap-2 items-center">
-              <Info className="w-3 h-3" />
-              {errors.confirmPassword.message}
-            </span>
-          )}
-        </div>
         <Button
           type="submit"
           variant={"outline"}
@@ -178,4 +130,4 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default SignInForm;

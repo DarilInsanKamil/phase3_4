@@ -12,8 +12,9 @@ datasource db {
 }
 
 model User {
-  userId   Int    @id @default(autoincrement())
-  email    String @unique
-  username String @unique
+  userId   Int     @id @default(autoincrement())
+  email    String  @unique
+  username String  @unique
   password String
+  image    String?
 }
