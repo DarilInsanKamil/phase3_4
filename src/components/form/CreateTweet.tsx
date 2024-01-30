@@ -19,7 +19,7 @@ const CreateTweet = ({ userId, image }: { userId: number; image: string }) => {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm<CreateTweetType>({
     resolver: zodResolver(createTweetSchema),
     defaultValues: {
@@ -39,26 +39,27 @@ const CreateTweet = ({ userId, image }: { userId: number; image: string }) => {
       }
     } finally {
       setIsLoading(false);
-      reset()
+      reset();
     }
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="mb-5">
-      <div className="border border-neutral-300 rounded-md p-3 flex gap-3 items-start">
+      <div className="border border-neutral-300 rounded-md p-3 flex gap-3 items-start ">
         <img src={image} alt="profile" className="w-[36px] h-[36px]" />
         <div className="w-full">
           <textarea
-            rows={4}
-            className="w-full outline-none resize-none mt-1"
+            id="textarea"
+            className="w-full outline-none resize-y mt-1 overflow-hidden h-auto"
             placeholder="apa yang kamu pikirkan?"
-            {...register("tweet")}
+            {...register("tweet", {})}
           ></textarea>
           {/* {errors.tweet && (
-          <span className="bg-red-300 rounded-md px-3 py-2 font-semibold text-red-900 text-xs flex gap-2 items-center">
-            <Info className="w-3 h-3" />
-            {errors.tweet.message}
-          </span>
-        )} */}
+            <span className="bg-red-300 rounded-md px-3 py-2 font-semibold text-red-900 text-xs flex gap-2 items-center">
+              <Info className="w-3 h-3" />
+              {errors.tweet.message}
+            </span>
+          )} */}
           <Button
             type="submit"
             variant={"outline"}

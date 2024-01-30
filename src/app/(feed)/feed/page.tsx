@@ -4,6 +4,7 @@ import { useFetchAllTweet } from "@/lib/data";
 import { getUserData } from "@/lib/type";
 import { Suspense } from "react";
 
+
 const page = async () => {
   const userData = await getUserData();
 
