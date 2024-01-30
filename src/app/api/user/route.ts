@@ -3,7 +3,6 @@ import { db } from '@/lib/db'
 import { hash } from 'bcrypt'
 import { z } from "zod";
 
-//define schema for input validation
 const userSchema = z
     .object({
         username: z.string().min(1, 'Username is required').max(100),
@@ -19,9 +18,7 @@ export async function POST(req: Request) {
     try {
         const body = await req.json();
         const { email, username, password, image } = userSchema.parse(body)
-        // return NextResponse.json({email, username, password})
 
-        //check if email already exist
 
         const existingUserByEmail = await db.user.findUnique({
             where: { email: email }
@@ -29,8 +26,6 @@ export async function POST(req: Request) {
         if (existingUserByEmail) {
             return NextResponse.json({ user: null, message: "user with this email already exist" }, { status: 409 })
         }
-
-        //check if username already exist
 
         const existingUserByUsername = await db.user.findUnique({
             where: { username: username }

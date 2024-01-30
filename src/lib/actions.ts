@@ -6,6 +6,12 @@ interface SignUpSchemaType {
         image?: string
     }
 }
+interface CreateTweetType {
+    values: {
+        userId: number,
+        tweet: string
+    }
+}
 
 export const useSignUp = async ({ values }: SignUpSchemaType) => {
     try {
@@ -32,6 +38,31 @@ export const useSignUp = async ({ values }: SignUpSchemaType) => {
         }
     } catch (error) {
         console.error("Error during registration", error);
+        return null;
+    }
+}
+
+export const useCreateTweet = async ({ values }: CreateTweetType) => {
+    const id = Number(values.userId)
+    try {
+        const response = await fetch(`api/tweet/${id}`, {
+            method: 'POST',
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                tweet: values.tweet
+            })
+        })
+        if (response.ok) {
+            const responseData = await response.json();
+            return responseData
+        } else {
+            console.error("Create tweet failed")
+            return null;
+        }
+    } catch (err) {
+        console.error("Error during create tweet", err)
         return null;
     }
 }

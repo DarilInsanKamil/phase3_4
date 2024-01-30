@@ -46,7 +46,7 @@ const SignInForm = () => {
         description: "email or password invalid",
       });
     } else {
-      router.push("/");
+      router.push("/feed");
       router.refresh();
     }
   };
