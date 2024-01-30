@@ -1,10 +1,9 @@
 import { Sparkles } from "lucide-react";
 import { ModeToggle } from "./theme-button";
 import { getAuthSession } from "@/lib/auth";
-import { signOut } from "next-auth/react";
-import { buttonVariants } from "./ui/button";
 import Link from "next/link";
 import SignOutButton from "./SignOutButton";
+import { formatUsername } from "@/lib/utils";
 
 const Navbar = async () => {
   const session = await getAuthSession();
@@ -12,19 +11,23 @@ const Navbar = async () => {
     <nav className="flex justify-between lg:px-40 px-5 py-2 items-center">
       <Sparkles />
       <div className="flex gap-2 items-center">
-        <ModeToggle />
         {session?.user?.image ? (
-          <div>
+          <div className="flex gap-2 items-center cursor-pointer">
             <img
               src={session.user.image}
               alt="profile"
-              className="w-[60px] h-[60px]"
+              className="w-[42px] h-[42px]"
             />
+            <div className="leading-tight lg:block hidden mr-2">
+              <p className="font-semibold">{session.user.name}</p>
+              <p className="text-neutral-500">@{formatUsername(session.user.email)}</p>
+            </div>
             <SignOutButton />
           </div>
         ) : (
           <Link href="/sign-in"></Link>
         )}
+        {/* <ModeToggle /> */}
       </div>
     </nav>
   );
