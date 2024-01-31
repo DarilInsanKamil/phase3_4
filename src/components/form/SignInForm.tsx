@@ -57,12 +57,7 @@ const SignInForm = () => {
         <Sparkles className="w-12 h-12 border border-neutral-200 p-2 rounded-md dark:border-neutral-800" />
         <div>
           <h3 className="font-bold text-xl">Welcome back?</h3>
-          <p className="text-sm">
-            don't have account?
-            <Link href="/sign-up" className="text-blue-500">
-              sign up
-            </Link>
-          </p>
+          <p className="text-sm">{`don't have account?`} <Link href="/sign-up" className="text-blue-500">sign up</Link></p>
         </div>
       </div>
 
