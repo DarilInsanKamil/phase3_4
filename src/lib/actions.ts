@@ -1,3 +1,5 @@
+import { db } from "./db"
+
 interface SignUpSchemaType {
     values: {
         username: string,
@@ -63,6 +65,30 @@ export const useCreateTweet = async ({ values }: CreateTweetType) => {
         }
     } catch (err) {
         console.error("Error during create tweet", err)
+        return null;
+    }
+}
+
+export const useLikeTweet = async (tweetId: number, userId: number) => {
+    const twId = Number(tweetId)
+    const uId = Number(userId)
+    try {
+        const response = await fetch("api/tweet/like", {
+            method: 'POST',
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                tweetId: twId,
+                userId: uId
+            })
+        })
+        if (response.ok) {
+            const data = await response.json()
+            return data
+        }
+    } catch (err) {
+        console.error("Error during like tweet", err)
         return null;
     }
 }

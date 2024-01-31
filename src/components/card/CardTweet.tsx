@@ -1,7 +1,10 @@
+"use client";
 import { formatDate, formatUsername, updateHari } from "@/lib/utils";
 import { AtSign, Dot } from "lucide-react";
 import ActionButton from "./ActionButton";
 import Link from "next/link";
+import { useLikeTweet } from "@/lib/actions";
+import { useRouter } from "next/navigation";
 
 interface DataTweet {
   tweetId: number;
@@ -17,12 +20,14 @@ interface DataTweet {
     createdAt: Date;
     image: string;
   };
+  Like: [];
 }
 
-const CardTweet = ({ data }: { data: DataTweet[] }) => {
+const CardTweet = ({ data }: any) => {
+  const router = useRouter();
   return (
     <div>
-      {data.map((res) => {
+      {data.map((res: any) => {
         return (
           <div
             key={res.tweetId}
@@ -54,7 +59,16 @@ const CardTweet = ({ data }: { data: DataTweet[] }) => {
               </div>
               <p className="break-words">{res.tweet}</p>
             </Link>
-            <ActionButton />
+            <ActionButton
+              like={res.Like?.length}
+              userId={res.user?.userId}
+              tweetId={res.tweetId}
+              likeClick={async () => {
+                await useLikeTweet(res.tweetId, res.user.userId);
+                router.refresh();
+              }}
+            />
+            {/* <button onClick={() => console.log(res.tweetId, res.user.userId)}>like</button> */}
           </div>
         );
       })}
