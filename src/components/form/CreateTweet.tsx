@@ -1,5 +1,5 @@
 "use client";
-import { useCreateTweet } from "@/lib/actions";
+import { FetchCreateTweet } from "@/lib/actions";
 import { createTweetSchema } from "@/lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
@@ -30,7 +30,7 @@ const CreateTweet = ({ userId, image }: { userId: number; image: string }) => {
   const onSubmit = async (values: z.infer<typeof createTweetSchema>) => {
     try {
       setIsLoading(true);
-      const responseData = await useCreateTweet({ values });
+      const responseData = await FetchCreateTweet({ values });
       if (responseData) {
         router.refresh();
         toast({

@@ -58,7 +58,7 @@ const SignInForm = () => {
         <div>
           <h3 className="font-bold text-xl">Welcome back?</h3>
           <p className="text-sm">
-            don't have account?{" "}
+            don't have account?
             <Link href="/sign-up" className="text-blue-500">
               sign up
             </Link>
