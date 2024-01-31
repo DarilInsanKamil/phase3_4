@@ -1,6 +1,6 @@
 import CardTweet from "@/components/card/CardTweet";
 import CreateTweet from "@/components/form/CreateTweet";
-import { useFetchAllTweet } from "@/lib/data";
+import { FetchAllTweet } from "@/lib/data";
 import { getUserData } from "@/lib/type";
 import { revalidatePath } from "next/cache";
 import { Suspense } from "react";
@@ -14,7 +14,7 @@ const page = async () => {
   }
   const image = userData.image || "/avatar1.png";
   const userId = userData.userId || 0;
-  const data = await useFetchAllTweet();
+  const data = await FetchAllTweet();
   return (
     <main className="grid lg:grid-cols-12 grid-cols-6 py-5 px-3">
       <Suspense fallback={<p>Loading....</p>}>
