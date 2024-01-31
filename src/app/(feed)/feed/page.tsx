@@ -2,6 +2,7 @@ import CardTweet from "@/components/card/CardTweet";
 import CreateTweet from "@/components/form/CreateTweet";
 import { useFetchAllTweet } from "@/lib/data";
 import { getUserData } from "@/lib/type";
+import { revalidatePath } from "next/cache";
 import { Suspense } from "react";
 
 

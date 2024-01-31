@@ -1,4 +1,5 @@
 import ActionButton from "@/components/card/ActionButton";
+import { useLikeTweet } from "@/lib/actions";
 import { db } from "@/lib/db";
 import { formatUsername, updateHari } from "@/lib/utils";
 import { Suspense } from "react";
@@ -8,6 +9,7 @@ const page = async ({ params }: { params: { id: number } }) => {
     where: { tweetId: Number(params.id) },
     include: {
       user: true,
+      Like: true,
     },
   });
   return (
@@ -43,7 +45,13 @@ const page = async ({ params }: { params: { id: number } }) => {
                 </div>
               </div>
               <p className="break-words">{data?.tweet}</p>
-              <ActionButton />
+              {/* <ActionButton
+                like={data?.Like.length}
+                likeClick={async () =>
+                  await useLikeTweet(data.tweetId, data.userId)
+                }
+                comment={async () => console.log("helo")}
+              /> */}
             </div>
           )}
         </div>

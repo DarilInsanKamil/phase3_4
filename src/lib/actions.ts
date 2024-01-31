@@ -1,3 +1,5 @@
+import { db } from "./db"
+
 interface SignUpSchemaType {
     values: {
         username: string,
@@ -63,6 +65,58 @@ export const useCreateTweet = async ({ values }: CreateTweetType) => {
         }
     } catch (err) {
         console.error("Error during create tweet", err)
+        return null;
+    }
+}
+
+export const useLikeTweet = async (tweetId: number, userId: number) => {
+    const twId = Number(tweetId)
+    const uId = Number(userId)
+    try {
+        const response = await fetch("api/tweet/like", {
+            method: 'POST',
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                tweetId: twId,
+                userId: uId
+            })
+        })
+        if (response.ok) {
+            const data = await response.json()
+            return data
+        }
+    } catch (err) {
+        console.error("Error during like tweet", err)
+        return null;
+    }
+}
+
+export const useCommentTweet = async (tweetId: number, userId: number, commentTweet: string) => {
+    const twId: number = Number(tweetId)
+    const uId: number = Number(userId)
+    const comTweet: string = commentTweet.toString()
+    try {
+        const response = await fetch('api/tweet/comment', {
+            method: 'POST',
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                tweetId: twId,
+                userId: uId,
+                commentTweet: comTweet
+            })
+        })
+        if (response.ok) {
+            const data = await response.json()
+            return data
+        } else {
+            console.log("Error while comment")
+        }
+    } catch (err) {
+        console.error("Error during like tweet", err)
         return null;
     }
 }
