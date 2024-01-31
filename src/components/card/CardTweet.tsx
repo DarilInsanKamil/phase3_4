@@ -1,10 +1,9 @@
 "use client";
-import { formatDate, formatUsername, updateHari } from "@/lib/utils";
-import { AtSign, Dot } from "lucide-react";
+import {formatUsername, updateHari } from "@/lib/utils";
 import ActionButton from "./ActionButton";
 import Link from "next/link";
-import { FetchLikeTweet } from "@/lib/actions";
 import { useRouter } from "next/navigation";
+import { FetchLikeTweet } from "@/lib/actions";
 
 interface DataTweet {
   tweetId: number;
