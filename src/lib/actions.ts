@@ -15,7 +15,7 @@ interface CreateTweetType {
     }
 }
 
-export const useSignUp = async ({ values }: SignUpSchemaType) => {
+export const FetchSignUp = async ({ values }: SignUpSchemaType) => {
     try {
         const response = await fetch("/api/user", {
             method: "POST",
@@ -44,7 +44,7 @@ export const useSignUp = async ({ values }: SignUpSchemaType) => {
     }
 }
 
-export const useCreateTweet = async ({ values }: CreateTweetType) => {
+export const FetchCreateTweet = async ({ values }: CreateTweetType) => {
     const id = Number(values.userId)
     try {
         const response = await fetch(`api/tweet/${id}`, {
@@ -69,7 +69,7 @@ export const useCreateTweet = async ({ values }: CreateTweetType) => {
     }
 }
 
-export const useLikeTweet = async (tweetId: number, userId: number) => {
+export const FetchLikeTweet = async (tweetId: number, userId: number) => {
     const twId = Number(tweetId)
     const uId = Number(userId)
     try {
@@ -93,7 +93,7 @@ export const useLikeTweet = async (tweetId: number, userId: number) => {
     }
 }
 
-export const useCommentTweet = async (tweetId: number, userId: number, commentTweet: string) => {
+export const CommentTweet = async (tweetId: number, userId: number, commentTweet: string) => {
     const twId: number = Number(tweetId)
     const uId: number = Number(userId)
     const comTweet: string = commentTweet.toString()

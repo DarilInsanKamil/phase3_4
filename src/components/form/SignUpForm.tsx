@@ -8,7 +8,7 @@ import { Button } from "../ui/button";
 import { Eye, EyeOff, Info, Loader2, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useSignUp } from "@/lib/actions";
+import { FetchSignUp } from "@/lib/actions";
 import { toast } from "../ui/use-toast";
 
 const SignUpForm = () => {
@@ -38,7 +38,7 @@ const SignUpForm = () => {
   const onSubmit = async (values: z.infer<typeof signUpSchema>) => {
     try {
       setIsLoading(true);
-      const responseData = await useSignUp({ values });
+      const responseData = await FetchSignUp({ values });
 
       if (responseData) {
         router.push("/sign-in");
@@ -59,7 +59,7 @@ const SignUpForm = () => {
         <div>
           <h3 className="font-bold text-xl">Create an account</h3>
           <p className="text-sm">
-            already have account?{" "}
+            already have account?
             <Link href="/sign-in" className="text-blue-500">
               sign in
             </Link>

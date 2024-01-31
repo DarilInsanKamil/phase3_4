@@ -3,7 +3,7 @@ import { formatDate, formatUsername, updateHari } from "@/lib/utils";
 import { AtSign, Dot } from "lucide-react";
 import ActionButton from "./ActionButton";
 import Link from "next/link";
-import { useLikeTweet } from "@/lib/actions";
+import { FetchLikeTweet } from "@/lib/actions";
 import { useRouter } from "next/navigation";
 
 interface DataTweet {
@@ -63,7 +63,7 @@ const CardTweet = ({ data }: any) => {
               like={res.Like?.length}
               comment={async () => console.log("comment")}
               likeClick={async () => {
-                await useLikeTweet(res.tweetId, res.user.userId);
+                await FetchLikeTweet(res.tweetId, res.user.userId);
                 router.refresh();
               }}
             />
