@@ -1,5 +1,5 @@
 import ActionButton from "@/components/card/ActionButton";
-import { useLikeTweet } from "@/lib/actions";
+import { FetchLikeTweet } from "@/lib/actions";
 import { db } from "@/lib/db";
 import { formatUsername, updateHari } from "@/lib/utils";
 import { Suspense } from "react";
@@ -48,7 +48,7 @@ const page = async ({ params }: { params: { id: number } }) => {
               {/* <ActionButton
                 like={data?.Like.length}
                 likeClick={async () =>
-                  await useLikeTweet(data.tweetId, data.userId)
+                  await FetchLikeTweet(data.tweetId, data.userId)
                 }
                 comment={async () => console.log("helo")}
               /> */}
