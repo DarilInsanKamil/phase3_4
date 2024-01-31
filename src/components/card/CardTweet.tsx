@@ -61,14 +61,12 @@ const CardTweet = ({ data }: any) => {
             </Link>
             <ActionButton
               like={res.Like?.length}
-              userId={res.user?.userId}
-              tweetId={res.tweetId}
+              comment={async () => console.log("comment")}
               likeClick={async () => {
                 await useLikeTweet(res.tweetId, res.user.userId);
                 router.refresh();
               }}
             />
-            {/* <button onClick={() => console.log(res.tweetId, res.user.userId)}>like</button> */}
           </div>
         );
       })}
