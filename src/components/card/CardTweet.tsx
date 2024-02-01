@@ -1,5 +1,5 @@
 "use client";
-import {formatUsername, updateHari } from "@/lib/utils";
+import { formatUsername, updateHari } from "@/lib/utils";
 import ActionButton from "./ActionButton";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -22,7 +22,7 @@ interface DataTweet {
   Like: [];
 }
 
-const CardTweet = ({ data }: any) => {
+const CardTweet = ({ data, userId }: { data: any; userId: number }) => {
   const router = useRouter();
   return (
     <div>
@@ -62,7 +62,8 @@ const CardTweet = ({ data }: any) => {
               like={res.Like?.length}
               comment={async () => console.log("comment")}
               likeClick={async () => {
-                await FetchLikeTweet(res.tweetId, res.user.userId);
+                console.log("like");
+                await FetchLikeTweet(res.tweetId, userId);
                 router.refresh();
               }}
             />

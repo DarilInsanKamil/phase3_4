@@ -33,7 +33,7 @@ export function updateHari(created_at: Date): string {
   const selisihHari: number = Math.floor(selisihJam / 24);
 
   if (selisihHari > 0) {
-    return `Diperbarui ${selisihHari} hari`;
+    return `${selisihHari} hari`;
   } else if (selisihJam > 0) {
     return `${selisihJam} jam`;
   } else if (selisihMenit <= 0) {

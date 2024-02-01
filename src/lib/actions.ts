@@ -72,6 +72,7 @@ export const FetchCreateTweet = async ({ values }: CreateTweetType) => {
 export const FetchLikeTweet = async (tweetId: number, userId: number) => {
     const twId = Number(tweetId)
     const uId = Number(userId)
+    console.log(twId, uId)
     try {
         const response = await fetch("api/tweet/like", {
             method: 'POST',

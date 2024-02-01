@@ -19,9 +19,9 @@ export function DialogCloseButton() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="ghost" size={"icon"}>
+        <button className="dark:text-neutral-500 text-neutral-500 mr-1">
           <MessageSquareMore className="w-5 h-5 text-neutral-500" />
-        </Button>
+        </button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>

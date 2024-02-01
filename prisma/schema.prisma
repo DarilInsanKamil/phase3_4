@@ -40,6 +40,8 @@ model Like {
   userId  Int
   tweetId Int
   tweet   Tweet @relation(fields: [tweetId], references: [tweetId])
+
+  @@unique([userId, tweetId])
 }
 
 model Comment {

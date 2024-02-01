@@ -45,12 +45,12 @@ const CreateTweet = ({ userId, image }: { userId: number; image: string }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="mb-5">
-      <div className="border border-neutral-300 rounded-md p-3 flex gap-3 items-start ">
+      <div className="border border-neutral-300 rounded-md p-3 flex gap-3 items-start dark:bg-neutral-900  dark:border-neutral-700">
         <img src={image} alt="profile" className="w-[36px] h-[36px]" />
-        <div className="w-full">
+        <div className="w-full ">
           <textarea
             id="textarea"
-            className="w-full outline-none resize-y mt-1 overflow-hidden h-auto"
+            className="w-full outline-none resize-y mt-1 overflow-hidden h-auto dark:bg-transparent"
             placeholder="apa yang kamu pikirkan?"
             {...register("tweet", {})}
           ></textarea>

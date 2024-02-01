@@ -3,7 +3,6 @@ import CreateTweet from "@/components/form/CreateTweet";
 import { FetchAllTweet } from "@/lib/data";
 import { getUserData } from "@/lib/type";
 import { Suspense } from "react";
-export const revalidate = 5;
 
 const page = async () => {
   const userData = await getUserData();
@@ -14,12 +13,13 @@ const page = async () => {
   const image = userData.image || "/avatar1.png";
   const userId = userData.userId || 0;
   const data = await FetchAllTweet();
+  console.log({userId});
   return (
     <main className="grid lg:grid-cols-12 grid-cols-6 py-5 px-3">
       <Suspense fallback={<p>Loading....</p>}>
         <div className="lg:col-start-5 lg:col-span-4 col-start-1 col-span-6">
           <CreateTweet userId={userId} image={image} />
-          <CardTweet data={data} />
+          <CardTweet data={data} userId={userId}/>
         </div>
       </Suspense>
     </main>

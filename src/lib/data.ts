@@ -1,8 +1,8 @@
 import { db } from "./db"
 import { tweetSchema } from "./schema";
-import { cache } from 'react'
 export const dynamic = "force-dynamic";
-export const FetchAllTweet = cache(async () => {
+
+export const FetchAllTweet = async () => {
     console.log('Fetching data...'); // Tambahkan log
     const response = await db.tweet.findMany({
         include: {
@@ -15,4 +15,4 @@ export const FetchAllTweet = cache(async () => {
     })
     // const parseData = tweetSchema.parse(response)
     return response;
-})
+}
