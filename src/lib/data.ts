@@ -7,7 +7,8 @@ export const FetchAllTweet = async () => {
     const response = await db.tweet.findMany({
         include: {
             user: true,
-            Like: true
+            Like: true,
+            Comment: true
         },
         orderBy: {
             createdAt: 'desc'

@@ -15,7 +15,13 @@ import {
 import { MessageSquareMore } from "lucide-react";
 import CommentTweet from "./CommentTweet";
 
-export function DialogCloseButton() {
+export function DialogCloseButton({
+  userId,
+  tweetId,
+}: {
+  userId: number;
+  tweetId: number;
+}) {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -31,7 +37,7 @@ export function DialogCloseButton() {
           </DialogDescription>
         </DialogHeader>
         <div className="flex items-center space-x-2">
-          <CommentTweet />
+          <CommentTweet userId={userId} tweetId={tweetId} />
         </div>
         {/* <DialogFooter className="sm:justify-start">
           <DialogClose asChild>

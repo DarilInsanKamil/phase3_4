@@ -3,7 +3,6 @@ import { formatUsername, updateHari } from "@/lib/utils";
 import ActionButton from "./ActionButton";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FetchLikeTweet } from "@/lib/actions";
 
 interface DataTweet {
   tweetId: number;
@@ -22,7 +21,7 @@ interface DataTweet {
   Like: [];
 }
 
-const CardTweet = ({ data, userId }: { data: any; userId: number }) => {
+const CommentCard = ({ data, userId }: { data: any; userId: number }) => {
   const router = useRouter();
   return (
     <div>
@@ -56,18 +55,18 @@ const CardTweet = ({ data, userId }: { data: any; userId: number }) => {
                   </p>
                 </div>
               </div>
-              <p className="break-words">{res.tweet}</p>
+              <p className="break-words">{res.commentTweet}</p>
             </Link>
-            <ActionButton
+            {/* <ActionButton
               like={res.Like?.length}
               comment={res.Comment?.length}
               userId={userId}
               tweetId={res.tweetId}
-            />
+            /> */}
           </div>
         );
       })}
     </div>
   );
 };
-export default CardTweet;
+export default CommentCard;

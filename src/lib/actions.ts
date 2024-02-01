@@ -72,7 +72,6 @@ export const FetchCreateTweet = async ({ values }: CreateTweetType) => {
 export const FetchLikeTweet = async (tweetId: number, userId: number) => {
     const twId = Number(tweetId)
     const uId = Number(userId)
-    console.log(twId, uId)
     try {
         const response = await fetch("api/tweet/like", {
             method: 'POST',
@@ -94,7 +93,7 @@ export const FetchLikeTweet = async (tweetId: number, userId: number) => {
     }
 }
 
-export const CommentTweet = async (tweetId: number, userId: number, commentTweet: string) => {
+export const CommentTweet = async ({tweetId, userId, commentTweet}: {tweetId: number, userId:number, commentTweet: string}) => {
     const twId: number = Number(tweetId)
     const uId: number = Number(userId)
     const comTweet: string = commentTweet.toString()

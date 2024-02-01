@@ -13,7 +13,6 @@ const page = async () => {
   const image = userData.image || "/avatar1.png";
   const userId = userData.userId || 0;
   const data = await FetchAllTweet();
-  console.log({userId});
   return (
     <main className="grid lg:grid-cols-12 grid-cols-6 py-5 px-3">
       <Suspense fallback={<p>Loading....</p>}>
